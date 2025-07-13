@@ -5,11 +5,14 @@ public class CircleMovement : MonoBehaviour
     public float speed = 0.001f;
     public Rigidbody2D rb;
     public Vector2 moveDirection;
+    private AudioSource audioSource;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
+
         rb = GetComponent<Rigidbody2D>();
 
         moveDirection = Vector2.right;
@@ -24,6 +27,10 @@ public class CircleMovement : MonoBehaviour
         moveDirection = Vector2.Reflect(moveDirection, normal).normalized;
 
         rb.linearVelocity = moveDirection;
+
+        if (collision.gameObject.CompareTag("Border")){
+            audioSource.Play();
+        }
     }
 
 
